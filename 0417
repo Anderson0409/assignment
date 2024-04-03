@@ -1,0 +1,49 @@
+import streamlit as st
+
+def main():
+    st.title('Anderson')
+    keep_going = "Y"
+    total = 0
+    total_students = 0  
+    
+    # Enter the number of exams, the number of exams will not change no matter whether add students
+    exam_number = st.number_input("Enter the number of exams:", step=1, value=1, format="%d")
+    
+    while keep_going.upper() == "Y":
+        student_number = st.number_input(f"Enter the number of students:", key=f"student_number_{total_students}", step=1, value=1, format="%d")
+        
+        # Measure whether student number is positive
+        if student_number <= 0:
+            st.error("ERROR: Please enter a positive number of students.")
+            student_number = st.number_input(f"Enter the number of students again: ", key=f"student_number_{total_students}_retry", step=1, value=1, format="%d")
+
+        for s_num in range(student_number):
+            personal_total = 0
+            st.write("student number : ", total_students + 1)  
+            st.write("-" * 35)
+            
+            for e_num in range(exam_number):
+                score = st.number_input(f"What is the score of student{total_students+1}, exam{e_num+1} : ", key=f"score_{total_students}_{e_num}", step=1, value=1, format="%d")
+                
+                while score > 100 or score < 0:
+                    st.error("Please enter a score between 0 and 100.")
+                    score = st.number_input(f"The score of student{total_students+1}, exam{e_num+1} : ", key=f"score_{total_students}_{e_num}_retry", step=1, value=1, format="%d")
+                
+                personal_total += score
+                total += score
+            
+            personal_average = personal_total / exam_number
+            st.write("=" * 35)
+            st.write(f"The average score of student{total_students+1} is {personal_average}")
+            st.write("=" * 35)
+            total_students += 1  # 更新总的学生人数
+        
+        # Whether to proceed to the next cycle
+        keep_going = st.text_input('Do you want to calculate another students? (Enter "Y" for yes): ', key=f"keep_going_{total_students}").strip()
+
+    # Display the total average
+    st.write()
+    st.write("=" * 35)
+    total_average = total / (total_students * exam_number)  
+    st.write("The average score (all exam) of class is : ", total_average)
+
