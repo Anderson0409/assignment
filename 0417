@@ -36,7 +36,7 @@ def main():
             st.write("=" * 35)
             st.write(f"The average score of student{total_students+1} is {personal_average}")
             st.write("=" * 35)
-            total_students += 1  # 更新总的学生人数
+            total_students += 1  
         
         # Whether to proceed to the next cycle
         keep_going = st.text_input('Do you want to calculate another students? (Enter "Y" for yes): ', key=f"keep_going_{total_students}").strip()
