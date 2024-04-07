@@ -1,3 +1,5 @@
+# streamlit and app
+
 import streamlit as st
 
 def main():
@@ -16,7 +18,7 @@ def main():
         if student_number <= 0:
             st.error("ERROR: Please enter a positive number of students.")
             student_number = st.number_input(f"Enter the number of students again: ", key=f"student_number_{total_students}_retry", step=1, value=1, format="%d")
-
+        
         for s_num in range(student_number):
             personal_total = 0
             st.write("student number : ", total_students + 1)  
@@ -46,4 +48,3 @@ def main():
     st.write("=" * 35)
     total_average = total / (total_students * exam_number)  
     st.write("The average score (all exam) of class is : ", total_average)
-
